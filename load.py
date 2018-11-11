@@ -4,7 +4,7 @@ import sys,os
 import bson
 from datetime import datetime,date,time
 
-NAMEFILE='d:\\files\listadosV.csv'
+NAMEFILE='name_file.csv'
 KEYSNAMES=['bankList','officeList','dateCreateList','typeList','textList']
 TEXT='textList'
 OFI='officeList'
@@ -17,15 +17,13 @@ ZEROS='0000'
 ZER20=str('0') * 20
 
 #mongoDB conection
-myMongoDb=pymongo.MongoClient("mongodb://a928358:mth%402012@clustermth-shard-00-00-zf21m.mongodb.net:27017,clustermth-shard-00-01-zf21m.mongodb.net:27017,clustermth-shard-00-02-zf21m.mongodb.net:27017/test?ssl=true&replicaSet=ClusterMth-shard-0&authSource=admin").dedblists
-print ('connection-> ',myMongoDb)
+myMongoDb=pymongo.MongoClient("mongodb://user_name:password@clustermth-shard-00-00-zf21m.mongodb.net:27017,clustermth-shard-00-01-zf21m.mongodb.net:27017,clustermth-shard-00-02-zf21m.mongodb.net:27017/test?ssl=true&replicaSet=ClusterMth-shard-0&authSource=admin").dedblists
+
 #variable auxiliar
 mytext=list()
 
 def insertlistMongoDB(mytext,mylineaux):
     '''insert in mongoDB dedblists/list office, get denom if denom not exits no insert in dedblist'''
-
-    #get _id /denom. typelist
 
     docdenomList=myMongoDb.cdenomList.find_one({'_id':bson.ObjectId(mylineaux.get(TYPE) + ZER20)},
                                                {'_id':0,'typeList':1})
@@ -57,7 +55,6 @@ with open(NAMEFILE,mode='r') as myFile:
                 mylineaux=mylinefile
                 mytext=list()
         except StopIteration:
-# falta StopIteration / tratar ultimo listado
             if not (os.stat(NAMEFILE).st_size == 0):
                 insertlistMongoDB(mytext,mylineaux)
             break
