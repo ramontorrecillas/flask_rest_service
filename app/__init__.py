@@ -14,7 +14,7 @@ myApp=Flask('__name__')
 
 #Configuration MongoDB_ATLAS
 MONGO_DEFAULT="mongodb://127.0.0.1:27017/dedblists"
-MONGO_ATLAS="mongodb+srv://a928358:mth%402012@clustermth-zf21m.mongodb.net/dedblists"
+MONGO_ATLAS="mongodb+srv://user_name:password@name_cluster.mongodb.net/dedblists"
 
 myApp.config['MONGO_URI']=getenv('MONGO_URI',MONGO_DEFAULT)
 myApp.config['MONGO_DBNAME']='dedblists'
